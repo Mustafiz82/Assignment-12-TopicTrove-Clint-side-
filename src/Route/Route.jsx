@@ -1,26 +1,37 @@
-import {
-    createBrowserRouter,
-   
-  } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/User/Home/Home";
-import ErrorPage from "../Pages/User/Home/ErrorPage/ErrorPage";
-
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import Login from "../Pages/User/Login/Login";
+import Registration from "../Pages/User/Registration/Registration";
+import Membership from "../Pages/User/Membership/Membership";
+// import ErrorPage from "../Layout/ErrorPage/ErrorPage";
+// import ErrorPage from "../Layout/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      errorElement : <ErrorPage></ErrorPage>,
-      children : [
-        {
-            path : "/",
-            element : <Home></Home>
-        }
-      ]
-    },
-  ]);
+	{
+		path: "/",
+		element: <MainLayout></MainLayout>,
+		errorElement: <ErrorPage></ErrorPage>,
+		children: [
+			{
+				path: "/",
+				element: <Home></Home>,
+			},
+			{
+				path: "/membership",
+				element: <Membership></Membership>
+			},
+		],
+	},
+	{
+		path: "/login",
+		element: <Login></Login>,
+	},
+	{
+		path: "/register",
+		element: <Registration></Registration>
+	},
+]);
 
-
-
-export default router
+export default router;

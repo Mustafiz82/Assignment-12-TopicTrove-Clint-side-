@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import erropImg from "../../../../assets/errorPage.webp"
+import erropImg from "../../assets/errorPage.webp"
 
 const ErrorPage = () => {
     return (
