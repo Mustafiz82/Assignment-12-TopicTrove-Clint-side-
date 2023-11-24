@@ -1,19 +1,95 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import loginillustrate from "../../../assets/login-illustration.png";
 import loginBG from "../../../assets/loginbgImg.jpg";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { AuthContext } from "../../../Context/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 const Registration = () => {
 	const [error, setError] = useState("");
+	const { SignUp, profile } = useContext(AuthContext);
+	const navigate = useNavigate();
+
+ 
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+
+	const onSubmit = (data) => {
+		console.log(data);
+
+		const apiKey = "c696443c798ad9c58798852ae8d4166a";
+		const imageUrl = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+
+		const imageFile = { image: data.profileImage[0] };
+
+		axios
+			.post(imageUrl, imageFile, {
+				headers: {
+					"content-type": "multipart/form-data",
+				},
+			})
+			.then((res) => {
+				console.log(res);
+
+				// const userDetails = {
+				// 	name  : data.name,
+				// 	email : data.email ,
+				// 	password : data.password,
+				// 	imageUrl : res.data.data.display_url
+				// }
+
+				const name = data.name;
+				const email = data.email;
+				const password = data.password;
+				const imageUrl = res.data.data.display_url;
+
+				const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+				const isValidPassword = passwordRegex.test(password);
+				console.log(isValidPassword, password);
+
+				if (isValidPassword) {
+					setError("");
+
+					SignUp(email, password)
+						.then((res) => {
+							console.log(res.user);
+							profile(name, imageUrl)
+								.then((res) => {
+									console.log(res);
+
+									Swal.fire({
+										position: "top-end",
+										icon: "success",
+										title: "User created Succefully",
+										showConfirmButton: false,
+										timer: 1500,
+									});
+									navigate("/")
+								})
+								.catch((err) => setError(err.message));
+						})
+						.catch((err) => console.log(err));
+				} else {
+					setError(
+						"Passwords must contain a digit, a lowercase letter, an uppercase letter, and be at least 8 characters long."
+					);
+				}
+			});
+	};
+
+	{
+		errors.exampleRequired && <span>This field is required</span>;
+	}
 
 
-	const {register,handleSubmit,	formState: { errors }, } = useForm()
 	
-	const onSubmit =  (data) => console.log(data)
-	
-	{errors.exampleRequired && <span>This field is required</span>}
-
 	return (
 		<div
 			className="hero min-h-screen"
@@ -91,6 +167,9 @@ const Registration = () => {
 											required: true,
 										})}
 									/>
+									{errors.exampleRequired && (
+										<span>This field is required</span>
+									)}
 								</div>
 								<div className="form-control">
 									<label className="label">
@@ -103,15 +182,14 @@ const Registration = () => {
 										name="profile"
 										className="file-input file-input-bordered file-input-primary w-full max-w-xs"
 										{...register("profileImage")}
+										required
 									/>
 								</div>
 
 								<p className="text-left  text-red-500 ">
 									{error}
 								</p>
-								{errors.exampleRequired && (
-									<span>This field is required</span>
-								)}
+
 								<div className="form-control mt-6">
 									<button
 										type="submit"
@@ -119,8 +197,6 @@ const Registration = () => {
 									>
 										SignUp
 									</button>
-								
-
 								</div>
 							</form>
 							<button className="btn -mt-5  mx-8 my-5 btn-outline text-primary">

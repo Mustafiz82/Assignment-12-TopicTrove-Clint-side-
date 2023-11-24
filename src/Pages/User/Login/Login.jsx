@@ -1,15 +1,42 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import loginillustrate from "../../../assets/login-illustration.png";
 import loginBG from "../../../assets/loginbgImg.jpg";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../Context/AuthProvider";
+import {useNavigate} from "react-router-dom"
+import Swal from "sweetalert2";
 
 const Login = () => {
 	const [error, setError] = useState("");
+	const {SignIN} = useContext(AuthContext)
+	const navigate = useNavigate()
 
 	const {register,handleSubmit,	formState: { errors }, } = useForm()
+
 	
-	const onSubmit =  (data) => console.log(data)
+	
+	const onSubmit =  (data) => {
+		console.log(data)
+
+		const email = data.email
+		const password = data.password
+
+		SignIN(email , password)
+		.then(res => {
+			console.log(res.user)
+			
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "logged in  Succefully",
+				showConfirmButton: false,
+				timer: 1500,
+			});
+			navigate("/")
+		})
+		.catch( err => setError(err.message))
+	}
 	{errors.exampleRequired && <span>This field is required</span>}
 
 
