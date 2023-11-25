@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from "../../firebase.config";
 
 export const AuthContext = createContext();
@@ -25,6 +25,17 @@ const AuthProvider = ({children}) => {
 		});
 	};
 
+    
+	const logOut = () => {
+		signOut(auth)
+			.then(() => {
+				// Sign-out successful.
+			})
+			.catch((error) => {
+				// An error happened.
+			});
+	};
+
     useEffect(() => {
 
 
@@ -35,6 +46,7 @@ const AuthProvider = ({children}) => {
                            }
                 else{
                     console.log("user is signed Out");
+                    setUser(null)
                 }
             })
     
@@ -45,7 +57,7 @@ const AuthProvider = ({children}) => {
         },[])
 
 	const authObj = {
-		user , SignIN , SignUp , profile
+		user , SignIN , SignUp , profile , logOut
 	};
 
 	return (

@@ -1,8 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../../assets/logo.png";
 import { IoMdNotifications } from "react-icons/io";
+import { useContext } from "react";
+import { AuthContext } from "../../../../Context/AuthProvider";
+import { CgProfile } from "react-icons/cg";
+
 
 const Nav = () => {
+
+	const { user , logOut} = useContext(AuthContext);
+	console.log(user);
+
+	
 	const ul = (
 		<>
 			<NavLink
@@ -29,6 +38,7 @@ const Nav = () => {
 			>
 				Membership
 			</NavLink>
+				
 		</>
 	);
 	return (
@@ -68,12 +78,42 @@ const Nav = () => {
 			</div>
 			<div className="navbar-end">
 				<div className="mr-2">
-                <IoMdNotifications size={38} className=""/>
-                </div>
+					<IoMdNotifications size={38} className="" />
+				</div>
 
-				<Link to="/login" className="btn">
-					Join Us
-				</Link>
+				{ user?.email ? (
+					<div className="dropdown dropdown-end">
+						<label
+							tabIndex={0}
+							className="btn btn-ghost btn-circle avatar"
+						>
+							<div className="w-10 rounded-full">
+								<img
+									alt="Tailwind CSS Navbar component"
+									src={user?.photoURL ? user.photoURL :<CgProfile /> }
+								/>
+							</div>
+						</label>
+						<ul
+							tabIndex={0}
+							className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+						>
+							<li>
+								<p className="text-xl mx-auto">{user?.displayName}</p>
+							</li>
+							<li className="text-xl my-4 btn">
+								<Link to="/dashboard">Dashboard</Link>
+							</li>
+							<li>
+								<button onClick={() => logOut()} className="btn ">Logout</button>
+							</li>
+						</ul>
+					</div>
+				) : (
+					<Link to="/login" className="btn">
+						Join Us
+					</Link>
+				)}
 			</div>
 		</div>
 	);
