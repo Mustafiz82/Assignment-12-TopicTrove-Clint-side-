@@ -5,6 +5,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Login from "../Pages/User/Login/Login";
 import Registration from "../Pages/User/Registration/Registration";
 import Membership from "../Pages/User/Membership/Membership";
+import PostDetails from "../Pages/User/PostDetails/PostDetails";
 // import ErrorPage from "../Layout/ErrorPage/ErrorPage";
 // import ErrorPage from "../Layout/ErrorPage/ErrorPage";
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
 			{
 				path: "/membership",
 				element: <Membership></Membership>
+			},
+			{
+				path: "/postDetails/:id",
+				element: <PostDetails></PostDetails>
 			},
 		],
 	},

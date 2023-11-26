@@ -1,6 +1,22 @@
 import banner from "../.././../../assets/bannerImage.jpg";
 
-const Banner = () => {
+const Banner = ({setSearchData ,refetch}) => {
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		const SearchInput = e.target.search.value
+		
+		setSearchData(SearchInput);
+		await Promise.resolve();
+		await refetch()
+		
+		
+		
+
+		
+	}
+
+	
 	return (
 		<div>
 			<div
@@ -22,15 +38,16 @@ const Banner = () => {
 							topics, connect with like-minded individuals, and
 							share your thoughts.
 						</p>
-						<div className="join">
+						<form onSubmit={handleSubmit} className="join">
 							<input
+								name="search"
 								className="input text-black input-bordered join-item"
 								placeholder="See search tags in tags section"
 							/>
-							<button className="btn join-item rounded bg-orange-500 text-white hover:bg-orange-500">
+							<button type="submit" className="btn join-item rounded bg-orange-500 text-white hover:bg-orange-500">
 								Search
 							</button>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

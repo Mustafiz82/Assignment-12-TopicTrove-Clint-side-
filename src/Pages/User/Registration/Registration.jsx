@@ -7,14 +7,15 @@ import axios from "axios";
 import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Registration = () => {
 	const [error, setError] = useState("");
 	const { SignUp, profile } = useContext(AuthContext);
 	const navigate = useNavigate();
+	const axiosPublic = useAxiosPublic();
+	const { user, googleSignIn } = useContext(AuthContext);
 
- 
 	const {
 		register,
 		handleSubmit,
@@ -38,12 +39,14 @@ const Registration = () => {
 			.then((res) => {
 				console.log(res);
 
-				// const userDetails = {
-				// 	name  : data.name,
-				// 	email : data.email ,
-				// 	password : data.password,
-				// 	imageUrl : res.data.data.display_url
-				// }
+				const userDetails = {
+					name: data.name,
+					email: data.email,
+					password: data.password,
+					imageUrl: res.data.data.display_url,
+					Membership: "Free",
+					role: "user",
+				};
 
 				const name = data.name;
 				const email = data.email;
@@ -64,16 +67,23 @@ const Registration = () => {
 								.then((res) => {
 									console.log(res);
 
-									Swal.fire({
-										position: "top-end",
-										icon: "success",
-										title: "User created Succefully",
-										showConfirmButton: false,
-										timer: 1500,
-									});
-									navigate("/")
+									axiosPublic
+										.post("/users", userDetails)
+										.then((res) => {
+											console.log(res.data);
+
+											Swal.fire({
+												position: "top-end",
+												icon: "success",
+												title: "User created Succefully",
+												showConfirmButton: false,
+												timer: 1500,
+											});
+											navigate("/");
+										})
+										.catch((err) => console.log(err));
 								})
-								.catch((err) => setError(err.message));
+								.catch((err) => console.log(err.message));
 						})
 						.catch((err) => console.log(err));
 				} else {
@@ -88,8 +98,37 @@ const Registration = () => {
 		errors.exampleRequired && <span>This field is required</span>;
 	}
 
+	const handleGoogleLogin = () => [
+		googleSignIn()
+			.then((data) => {
+				console.log(data.user.displayName);
+				const userDetails = {
+					name: data.user.displayName,
+					email: data.user.email,
+					imageUrl: data.user.photoURL,
+					Membership: "Free",
+					role: "user",
+				};
 
-	
+				axiosPublic
+					.post("/users", userDetails)
+					.then((res) => {
+						console.log(res.data);
+
+						Swal.fire({
+							position: "top-end",
+							icon: "success",
+							title: "User created Succefully",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						navigate("/");
+					})
+					.catch((err) => console.log(err));		
+			})
+			.catch((err) => console.log(err)),
+	];
+
 	return (
 		<div
 			className="hero min-h-screen"
@@ -199,7 +238,10 @@ const Registration = () => {
 									</button>
 								</div>
 							</form>
-							<button className="btn -mt-5  mx-8 my-5 btn-outline text-primary">
+							<button
+								onClick={handleGoogleLogin}
+								className="btn -mt-5  mx-8 my-5 btn-outline text-primary"
+							>
 								continue with Google
 							</button>
 						</div>

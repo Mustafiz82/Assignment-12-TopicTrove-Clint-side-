@@ -19,10 +19,9 @@ const Announcement = () => {
     const [announcement , setAnnouncement] = useState([])
 
     useEffect(() => {
-        axios
-		.get("Announcement.json")
-		.then((res) => setAnnouncement(res.data))
-		.catch((err) => console.log(err));
+        axiosPublic.get("/announcements")
+        .then(res => setAnnouncement(res.data))
+        .catch(err => console.log(err))
     } ,[])
 
     console.log(announcement?.length);

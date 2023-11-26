@@ -1,16 +1,16 @@
 import axios from "axios";
 
 
-const axiosPublic = axios.create({
+const axiosSecure = axios.create({
     baseURL: 'http://localhost:5144',
     // timeout: 2000,
     // headers: { 'X-Custom-Header': 'foobar' }
   });
 
 
-const useAxiosPublic = () => {
-    return axiosPublic
+const useAxiosSecure = () => {
+    return axiosSecure
 };
 
 
-export default useAxiosPublic;
+export default useAxiosSecure;

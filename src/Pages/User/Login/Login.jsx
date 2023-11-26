@@ -6,11 +6,13 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Context/AuthProvider";
 import {useNavigate} from "react-router-dom"
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Login = () => {
 	const [error, setError] = useState("");
-	const {SignIN} = useContext(AuthContext)
+	const {SignIN , googleSignIn} = useContext(AuthContext)
 	const navigate = useNavigate()
+	const axiosPublic = useAxiosPublic()
 
 	const {register,handleSubmit,	formState: { errors }, } = useForm()
 
@@ -38,6 +40,39 @@ const Login = () => {
 		.catch( err => setError(err.message))
 	}
 	{errors.exampleRequired && <span>This field is required</span>}
+
+
+	
+	const handleGoogleLogin = () => [
+		googleSignIn()
+			.then((data) => {
+				console.log(data.user.displayName);
+				const userDetails = {
+					name: data.user.displayName,
+					email: data.user.email,
+					imageUrl: data.user.photoURL,
+					Membership: "Free",
+					role: "user",
+				};
+
+				axiosPublic
+					.post("/users", userDetails)
+					.then((res) => {
+						console.log(res.data);
+
+						Swal.fire({
+							position: "top-end",
+							icon: "success",
+							title: "User created Succefully",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						navigate("/");
+					})
+					.catch((err) => console.log(err));		
+			})
+			.catch((err) => console.log(err)),
+	];
 
 
 	return (
@@ -109,7 +144,7 @@ const Login = () => {
 										</button>
 									</div>
 								</form>
-								<button className="btn -mt-5  mx-8 my-5 btn-outline text-primary">
+								<button onClick={handleGoogleLogin} className="btn -mt-5  mx-8 my-5 btn-outline text-primary">
 									
 									continue with Google
 								</button>
