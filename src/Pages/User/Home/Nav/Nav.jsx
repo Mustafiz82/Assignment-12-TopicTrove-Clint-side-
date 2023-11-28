@@ -102,7 +102,7 @@ const Nav = () => {
 								<p className="text-xl mx-auto">{user?.displayName}</p>
 							</li>
 							<li className="text-xl my-4 btn">
-								<Link to="/dashboard">Dashboard</Link>
+								<Link to="/Dashboard">Dashboard</Link>
 							</li>
 							<li>
 								<button onClick={() => logOut()} className="btn ">Logout</button>

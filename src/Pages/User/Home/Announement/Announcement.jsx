@@ -28,7 +28,7 @@ const Announcement = () => {
 
 	return (
 		<div className={!announcement?.length && "hidden"}>
-            <div className="my-10 ">
+            <div className="py-10 bg-slate-100 ">
 			<h1 className="text-3xl text-center ">Announcements</h1>
 
             <Swiper

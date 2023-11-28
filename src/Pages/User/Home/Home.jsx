@@ -6,6 +6,7 @@ import Posts from "./Post/Posts";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import loading from "../../../assets/loading-loader.gif"
+import SearchTag from "./Tag/SearchTag";
 
 const Home = () => {
 
@@ -37,6 +38,7 @@ const Home = () => {
         <div>
             <Banner setSearchData={setSearchData} refetch={refetch} ></Banner>
             <Announcement></Announcement>
+            <SearchTag></SearchTag>
             <Posts data={data}></Posts>
             <Footer></Footer>
 
