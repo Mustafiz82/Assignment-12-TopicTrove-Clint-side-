@@ -44,7 +44,7 @@ const MyPost = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				axiosSecure.delete(`/comment/${id}`).then((res) => {
+				axiosSecure.delete(`/post/${id}`).then((res) => {
 					Swal.fire({
 						title: "Deleted!",
 						text: "Your post has been deleted.",

@@ -12,6 +12,12 @@ import Myprofile from "../Pages/User/Dashboard/MyProfile/Myprofile";
 import MyPost from "../Pages/User/Dashboard/MYPosts/MyPost";
 import Comment from "../Pages/User/PostDetails/Comment";
 import CommentPage from "../Pages/User/Home/CommentPage/CommentPage";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
+import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
+import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
+import MakeAnnouncement from "../Pages/Admin/MakeAnnouncement/MakeAnnouncement";
+import ReportedActivities from "../Pages/Admin/ReportedActivities/ReportedActivities";
 // import ErrorPage from "../Layout/ErrorPage/ErrorPage";
 // import ErrorPage from "../Layout/ErrorPage/ErrorPage";
 
@@ -68,8 +74,37 @@ const router = createBrowserRouter([
 				element: <CommentPage></CommentPage>
 				
 			},
+			
 		]
 	},
+	{
+		path:"/AdminDashboard",
+		element : <AdminDashboard></AdminDashboard>,
+		errorElement: <ErrorPage></ErrorPage>,
+		children : [
+			{
+				path:"AdminHome",
+				element : <AdminHome></AdminHome>
+			},
+			{
+				path:"AdminProfile",
+				element : <AdminProfile></AdminProfile>
+			},
+			{
+				path:"ManageUsers",
+				element : <ManageUsers></ManageUsers>
+			},
+			{
+				path:"MakeAnnouncement",
+				element : <MakeAnnouncement></MakeAnnouncement>
+			},
+			{
+				path:"ReportedPage",
+				element : <ReportedActivities></ReportedActivities>
+			},
+		]
+
+	}
 
 ]);
 

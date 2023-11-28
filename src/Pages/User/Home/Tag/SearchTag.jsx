@@ -2,16 +2,40 @@ import React from 'react';
 import clipboardCopy from "clipboard-copy";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from '../../../../Hooks/useAxiosPublic';
+import loading from "../../../../assets/loading-loader.gif"
 
 
 
 const SearchTag = () => {
+    const axiosPublic = useAxiosPublic()
 
     const handleCopyClick = (textToCopy) => {
         clipboardCopy(textToCopy);
 
         toast(textToCopy + "   Copied to clipboard")
-    };       
+    };      
+
+
+    const { isLoading, data, refetch } = useQuery({
+		queryKey: ["tag"],
+		queryFn: () =>
+			axiosPublic.get("/tags").then((res) => {
+				return res.data;
+			}),
+	});
+
+	console.log(data);
+
+	if (isLoading) {
+		return (
+			<div className="h-96 flex justify-center items-center">
+				<img src={loading} alt="" srcset="" />
+			</div>
+		);
+	}
+
  
 
     return (
@@ -20,10 +44,12 @@ const SearchTag = () => {
             <p className='mb-2'>Better Seacrh with these tags || Click to copy</p>
 
             <div>
-                <p  onClick={() => handleCopyClick("business")} className='btn cursor-copy btn-outline'>business</p>
-                <p onClick={() => handleCopyClick("technology")} className='btn cursor-copy btn-outline'>technology</p>
-                <p onClick={() => handleCopyClick("programming")} className='btn cursor-copy btn-outline'>programming</p>
-                <p onClick={() => handleCopyClick("food")} className='btn cursor-copy btn-outline'>food</p>
+
+
+                {
+                    data?.map(item => <p key={item._id}  onClick={() => handleCopyClick(item?.tag)} className='btn cursor-copy btn-outline'>{item.tag}</p>)
+                }
+                
                 <ToastContainer />
             </div>
 

@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import { CgProfile } from "react-icons/cg";
 
+const isAdmin = true
+
 
 const Nav = () => {
 
@@ -102,7 +104,9 @@ const Nav = () => {
 								<p className="text-xl mx-auto">{user?.displayName}</p>
 							</li>
 							<li className="text-xl my-4 btn">
-								<Link to="/Dashboard">Dashboard</Link>
+								{
+								isAdmin ? <Link to="/AdminDashboard/AdminHome">Dashboard</Link> : <Link to="/Dashboard">Dashboard</Link>
+								}
 							</li>
 							<li>
 								<button onClick={() => logOut()} className="btn ">Logout</button>
