@@ -6,9 +6,9 @@ import loading from "../../../../assets/loading-loader.gif";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import SinglePost from "../../Home/Post/SinglePost";
-const axiosSecure = useAxiosSecure();
 
 const MyPost = () => {
+	// const axiosSecure = useAxiosSecure();
 	const { user } = useContext(AuthContext);
 	const axiosSecure = useAxiosSecure();
 

@@ -5,7 +5,6 @@ import noDataImage from "../../../../assets/no-data-found-8867280-7265556.webp"
 
 const Posts = ({data}) => {
 
-    console.log(data?.length);
     
 
     

@@ -78,7 +78,7 @@ const ReportedActivities = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{data.map((item, index) => (
+						{data?.map((item, index) => (
 							<tr key={item._id}>
 								<th>
 									<label>{index + 1}</label>
@@ -89,7 +89,7 @@ const ReportedActivities = () => {
                                     <button className=""> {item?.postInfo.reported} </button>
                                 </td>
 								<td>
-                                    <button onClick={() => handleDelete(item?.postInfo._id)} className='btn btn-primary'>Dlete</button>
+                                    <button onClick={() => handleDelete(item?.postInfo._id)} className='btn btn-primary'>Delete</button>
                                 </td>
 							</tr>
 						))}

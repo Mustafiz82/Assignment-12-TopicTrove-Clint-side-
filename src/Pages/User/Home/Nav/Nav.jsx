@@ -4,14 +4,17 @@ import { IoMdNotifications } from "react-icons/io";
 import { useContext } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import { CgProfile } from "react-icons/cg";
-
-const isAdmin = true
+import useAdmin from "../../../../Hooks/useAdmin";
 
 
 const Nav = () => {
+	
+	const [isAdmin] = useAdmin()
+	
+
+	console.log("admin is the  " ,isAdmin);
 
 	const { user , logOut} = useContext(AuthContext);
-	console.log(user);
 
 	
 	const ul = (
@@ -105,7 +108,7 @@ const Nav = () => {
 							</li>
 							<li className="text-xl my-4 btn">
 								{
-								isAdmin ? <Link to="/AdminDashboard/AdminHome">Dashboard</Link> : <Link to="/Dashboard">Dashboard</Link>
+								isAdmin ? <Link to="/AdminDashboard/AdminHome">Dashboard</Link> : <Link to="/Dashboard/DashboardHome">Dashboard</Link>
 								}
 							</li>
 							<li>

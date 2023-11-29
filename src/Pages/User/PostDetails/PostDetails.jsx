@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { BiSolidUpvote } from "react-icons/bi";
@@ -10,6 +10,19 @@ import loading from "../../../assets/loading-loader.gif";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Comment from "./Comment";
 import { AuthContext } from "../../../Context/AuthProvider";
+import {
+	FacebookIcon,
+	FacebookMessengerIcon,
+	FacebookMessengerShareButton,
+	FacebookShareButton,
+	FacebookShareCount,
+	TelegramIcon,
+	TelegramShareButton,
+	TwitterShareButton,
+	WhatsappIcon,
+	WhatsappShareButton,
+	XIcon,
+} from "react-share";
 
 const PostDetails = () => {
 	const params = useParams();
@@ -17,47 +30,39 @@ const PostDetails = () => {
 
 	const axiosPublic = useAxiosPublic();
 	const axiosSecure = useAxiosSecure();
-    const [commentData , setcommentData] = useState([])
-    const [iscommented , setiscomment] = useState({})
-    const [loading , setLoading] = useState(true)
+	const [commentData, setcommentData] = useState([]);
+	const [iscommented, setiscomment] = useState({});
+	const [loading, setLoading] = useState(true);
 
-    const {user} = useContext(AuthContext)
+	const { user } = useContext(AuthContext);
 
 	const { isPending, isLoading, error, data, refetch } = useQuery({
 		queryKey: ["singlePostDetails"],
 		queryFn: () =>
 			axiosPublic.get(`/post/${params.id}`).then((res) => {
-
-                
 				return res.data;
 			}),
 	});
-    console.log(data?.postInfo.postTitle);
+	console.log(data);
 
 	useEffect(() => {
-        axiosPublic.get(`/comment/${data?.postInfo.postTitle}`)
-                .then(res => {
-                    setcommentData(res.data)
-                    setLoading(false)
-                })
-    } ,[data,iscommented ])
-  
-      
-      console.log(commentData);  
+		axiosPublic.get(`/comment/${data?.postInfo.postTitle}`).then((res) => {
+			setcommentData(res.data);
+			setLoading(false);
+		});
+	}, [data, iscommented]);
 
-
-
+	console.log(commentData);
 
 	// console.log(data);
 
-	if (isLoading ) {
+	if (isLoading) {
 		return (
 			<div className="flex h-96 w-screen items-center justify-center">
 				<img src={loading} alt="" srcset="" />
 			</div>
 		);
 	}
-    
 
 	const handleUpvote = () => {
 		const upVote = {
@@ -85,25 +90,29 @@ const PostDetails = () => {
 		});
 	};
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const comment = {
-            comment : e.target.comment.value,
-            email : user.email,
-            postTitle:data.postInfo.postTitle
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const comment = {
+			comment: e.target.comment.value,
+			email: user.email,
+			postTitle: data.postInfo.postTitle,
+		};
 
-        }
+		console.log(comment);
 
-        console.log(comment);
+		axiosSecure
+			.post("/comments", comment)
+			.then((res) => {
+				setiscomment(res.data);
+				refetch();
+			})
+			.catch((err) => console.log(err));
+	};
 
-        axiosSecure.post("/comments" , comment)
-        .then(res => {
-            setiscomment(res.data);
-            refetch()
-        })
-        .catch(err => console.log(err))
-
-    }
+	const location = useLocation();
+	const shareUrl = `https://topic-trove.web.app${location?.pathname}`
+	console.log(shareUrl);
+		const title = data?.title;
 
 	return (
 		<div className="py-5">
@@ -146,38 +155,190 @@ const PostDetails = () => {
 					<FaCommentAlt size={20} />
 					Comment {commentData.length}
 				</label>
-				<button className="btn rounded-none btn-outline">
+				<button
+					onClick={() =>
+						document.getElementById("my_modal_2").showModal()
+					}
+					className="btn rounded-none btn-outline"
+				>
 					<IoIosShareAlt size={20} />
 					Share
 				</button>
 			</div>
 
-			{user ? <div className="flex gap-4 mt-5">
-                <img src={user?.photoURL}  className="w-10 h-10 rounded-full" alt="" />
-				<form onSubmit={handleSubmit} className="w-full relative">
+			{user ? (
+				<div className="flex gap-4 mt-5">
+					<img
+						src={user?.photoURL}
+						className="w-10 h-10 rounded-full"
+						alt=""
+					/>
+					<form onSubmit={handleSubmit} className="w-full relative">
+						<textarea
+							className="textarea textarea-bordered   w-full"
+							placeholder="your comment"
+							id="comment"
+							required
+							name="comment"
+						></textarea>
+						<button
+							type="submit"
+							className={`  btn absolute right-8 top-4`}
+						>
+							send
+						</button>
+					</form>
+				</div>
+			) : (
+				<p>please Login to comment</p>
+			)}
 
-                <textarea
-					className="textarea textarea-bordered   w-full"
-					placeholder="your comment"
-                    id="comment" required
-                    name="comment"
-				></textarea>
-                <button type="submit"    className={`  btn absolute right-8 top-4`}>send</button>
-                </form>
-			</div> : <p>please Login to  comment</p>}
+			<div className="my-5">
+				<h1 className="text-3xl text-center my-5">comments</h1>
+				{commentData?.map((item) => (
+					<Comment key={item._id} item={item}></Comment>
+				))}
 
-            <div className="my-5"> 
+				{loading && <p>loading...</p>}
+			</div>
 
-                <h1 className="text-3xl text-center my-5">comments</h1>
-                {
-                    commentData?.map(item => <Comment key={item._id} item={item}></Comment>
-                    )
-                }
+			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
-                {
-                    loading && <p>loading...</p>
-                }
-            </div>
+			<dialog id="my_modal_1" className="modal">
+				<div className="modal-box w-auto">
+					<h3 className="font-bold text-center mb-4 text-lg">
+						Share with{" "}
+					</h3>
+					<div className="flex gap-4">
+						<div className="Demo__some-network">
+							<FacebookShareButton
+								url={shareUrl}
+								className="Demo__some-network__share-button"
+							>
+								<FacebookIcon size={32} round />
+							</FacebookShareButton>
+
+							<div>
+								<FacebookShareCount
+									url={shareUrl}
+									className="Demo__some-network__share-count"
+								>
+									{(count) => count}
+								</FacebookShareCount>
+							</div>
+						</div>
+						<div className="Demo__some-network">
+							<FacebookMessengerShareButton
+								url={shareUrl}
+								appId="521270401588372"
+								className="Demo__some-network__share-button"
+							>
+								<FacebookMessengerIcon size={32} round />
+							</FacebookMessengerShareButton>
+						</div>
+						<div className="Demo__some-network">
+							<TwitterShareButton
+								url={shareUrl}
+								title={title}
+								className="Demo__some-network__share-button"
+							>
+								<XIcon size={32} round />
+							</TwitterShareButton>
+						</div>
+						<div className="Demo__some-network">
+							<TelegramShareButton
+								url={shareUrl}
+								title={title}
+								className="Demo__some-network__share-button"
+							>
+								<TelegramIcon size={32} round />
+							</TelegramShareButton>
+						</div>{" "}
+						<div className="Demo__some-network">
+							<WhatsappShareButton
+								url={shareUrl}
+								title={title}
+								separator=":: "
+								className="Demo__some-network__share-button"
+							>
+								<WhatsappIcon size={32} round />
+							</WhatsappShareButton>
+						</div>
+					</div>
+					<form method="dialog" className="modal-backdrop">
+						<button>close</button>
+					</form>
+				</div>
+			</dialog>
+
+			{/* Open the modal using document.getElementById('ID').showModal() method */}
+			
+			<dialog id="my_modal_2" className="modal">
+				<div className="modal-box w-auto">
+				<h3 className="font-bold text-center mb-4 text-lg">
+						Share with{" "}
+					</h3>
+					<div className="flex gap-4">
+						<div className="Demo__some-network">
+							<FacebookShareButton
+								url={shareUrl}
+								className="Demo__some-network__share-button"
+							>
+								<FacebookIcon size={32} round />
+							</FacebookShareButton>
+
+							<div>
+								<FacebookShareCount
+									url={shareUrl}
+									className="Demo__some-network__share-count"
+								>
+									{(count) => count}
+								</FacebookShareCount>
+							</div>
+						</div>
+						<div className="Demo__some-network">
+							<FacebookMessengerShareButton
+								url={shareUrl}
+								appId="521270401588372"
+								className="Demo__some-network__share-button"
+							>
+								<FacebookMessengerIcon size={32} round />
+							</FacebookMessengerShareButton>
+						</div>
+						<div className="Demo__some-network">
+							<TwitterShareButton
+								url={shareUrl}
+								title={title}
+								className="Demo__some-network__share-button"
+							>
+								<XIcon size={32} round />
+							</TwitterShareButton>
+						</div>
+						<div className="Demo__some-network">
+							<TelegramShareButton
+								url={shareUrl}
+								title={title}
+								className="Demo__some-network__share-button"
+							>
+								<TelegramIcon size={32} round />
+							</TelegramShareButton>
+						</div>{" "}
+						<div className="Demo__some-network">
+							<WhatsappShareButton
+								url={shareUrl}
+								title={title}
+								separator=":: "
+								className="Demo__some-network__share-button"
+							>
+								<WhatsappIcon size={32} round />
+							</WhatsappShareButton>
+						</div>
+					</div>
+				</div>
+				<form method="dialog" className="modal-backdrop">
+					<button>close</button>
+				</form>
+			</dialog>
 		</div>
 	);
 };

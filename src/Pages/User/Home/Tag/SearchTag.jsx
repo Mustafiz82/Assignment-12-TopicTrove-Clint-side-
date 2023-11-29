@@ -26,7 +26,6 @@ const SearchTag = () => {
 			}),
 	});
 
-	console.log(data);
 
 	if (isLoading) {
 		return (

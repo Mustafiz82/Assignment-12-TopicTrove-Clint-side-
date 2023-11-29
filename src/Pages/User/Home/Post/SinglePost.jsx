@@ -14,18 +14,7 @@ const SinglePost = ({ item }) => {
 	const [data , setData] = useState([])
 	const [loading , setloading] = useState(true)
 
-    // const { isLoading, error, data } = useQuery({
-    //     queryKey: ['comments'],
-    //     queryFn: () =>
-    //       axiosPublic.get(`/comment/${item?.postInfo?.postTitle}`)
-    //       .then(res => {
-    //         return res.data
-			
-    //       })
-    //   })
-
-	console.log(item.postInfo.postTitle);
-
+    
 	useEffect(() => {
         axiosPublic.get(`/comment/${item?.postInfo?.postTitle}`)
                 .then(res => {
@@ -35,13 +24,13 @@ const SinglePost = ({ item }) => {
     } ,[item ])
 
 
-	//   if(loading){
-    //    return <div className="h-96 flex justify-center items-center">
-    //         <img src={loading} alt="" srcset="" />
-    //     </div>
-    // }
+	  if(loading){
+       return <div className="h-96 flex justify-center items-center">
+            <img src={loading} alt="" srcset="" />
+        </div>
+    }
 	  
-      console.log("item is" ,data);
+    //   console.log("item is" ,data);
 	return (
 		<Link to={`/postDetails/${item?.postInfo?._id}`}>
             

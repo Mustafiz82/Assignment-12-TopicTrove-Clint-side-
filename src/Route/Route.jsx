@@ -10,7 +10,6 @@ import UserDashboard from "../Pages/User/Dashboard/UserDashboard";
 import AddPost from "../Pages/User/Dashboard/AddPost/AddPost";
 import Myprofile from "../Pages/User/Dashboard/MyProfile/Myprofile";
 import MyPost from "../Pages/User/Dashboard/MYPosts/MyPost";
-import Comment from "../Pages/User/PostDetails/Comment";
 import CommentPage from "../Pages/User/Home/CommentPage/CommentPage";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
@@ -18,8 +17,7 @@ import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
 import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
 import MakeAnnouncement from "../Pages/Admin/MakeAnnouncement/MakeAnnouncement";
 import ReportedActivities from "../Pages/Admin/ReportedActivities/ReportedActivities";
-// import ErrorPage from "../Layout/ErrorPage/ErrorPage";
-// import ErrorPage from "../Layout/ErrorPage/ErrorPage";
+import UserHome from "../Pages/User/Dashboard/UserDashboard/UserHome";
 
 const router = createBrowserRouter([
 	{
@@ -54,6 +52,11 @@ const router = createBrowserRouter([
 		element: <UserDashboard></UserDashboard>,
 		errorElement: <ErrorPage></ErrorPage>,
 		children: [
+			{
+				path:"DashboardHome",
+				element: <UserHome></UserHome>
+				
+			},
 			{
 				path:"MyProfile",
 				element: <Myprofile></Myprofile>
