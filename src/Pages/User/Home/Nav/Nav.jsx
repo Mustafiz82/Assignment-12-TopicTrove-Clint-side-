@@ -12,7 +12,7 @@ import loading from "../../../../assets/loading-loader.gif";
 const Nav = () => {
 	const [isAdmin] = useAdmin();
 
-	console.log("admin is the  ", isAdmin);
+	// console.log("admin is the  ", isAdmin);
 
 	const { user, logOut } = useContext(AuthContext);
 
@@ -55,7 +55,7 @@ const Nav = () => {
 		},
 	});
 
-	console.log(data?.announcmentCount);
+	// console.log(data?.announcmentCount);
 
 	if (isLoading) {
 		return (

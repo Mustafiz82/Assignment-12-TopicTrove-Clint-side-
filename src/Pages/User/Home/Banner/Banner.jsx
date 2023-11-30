@@ -18,15 +18,15 @@ const Banner = ({setSearchData ,refetch}) => {
 
 	
 	return (
-		<div>
+		<div className="">
 			<div
-				className="hero min-h-screen"
+				className="hero min-h-screen	"
 				style={{
 					backgroundImage: `url(${banner})`,
 				}}
 			>
 				<div className=""></div>
-				<div className="hero-content p-0 mt-6 text-center text-neutral-content">
+				<div className="hero-content p-0  mt-6 text-center text-neutral-content">
 					<div className=" bg-[#46057B]  p-5 rounded-full text-center">
 						<h1 className="mb-5 max-w-xl mx-auto text-4xl font-bold">
 							Your Gateway to Vibrant Conversations

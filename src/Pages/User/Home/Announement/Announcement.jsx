@@ -24,7 +24,7 @@ const Announcement = () => {
         .catch(err => console.log(err))
     } ,[])
 
-    console.log(announcement?.length);
+    // console.log(announcement?.length);
 
 	return (
 		<div className={!announcement?.length && "hidden"}>
