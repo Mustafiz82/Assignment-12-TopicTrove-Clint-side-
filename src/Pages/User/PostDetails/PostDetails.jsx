@@ -65,9 +65,11 @@ const PostDetails = () => {
 	}
 
 	const handleUpvote = () => {
+
 		const upVote = {
+			
 			upvote: data?.postInfo.upVote ? data?.postInfo.upVote + 1 : 1,
-			downVote: data?.postInfo.downVote ? data?.postInfo.downVote : 1,
+			downVote: data?.postInfo.downVote ? data?.postInfo.downVote - 1 : 0,
 		};
 		console.log(upVote);
 
@@ -79,8 +81,8 @@ const PostDetails = () => {
 
 	const handleDownVote = () => {
 		const downVote = {
-			downVote: data?.postInfo.downVote ? data?.postInfo.downVote + 1 : 1,
-			upvote: data?.postInfo.upVote ? data?.postInfo.upVote : 1,
+			downVote: data?.postInfo.downVote ? data?.postInfo.downVote + 1 : 1 ,
+			upvote: data?.postInfo.upVote ? data?.postInfo.upVote -1 : 0
 		};
 		console.log(downVote);
 

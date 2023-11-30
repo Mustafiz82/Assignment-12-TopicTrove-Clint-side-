@@ -18,7 +18,7 @@ const AddPost = () => {
 
 
 	const { data: postCount = [] ,isLoading, refetch} = useQuery({
-		queryKey: ["postCount"],
+		queryKey: ["postCount"  ],
 		queryFn: async () => {
 			const res = await axiosSecure.get(`/postcount/${user?.email}` );
 			return res.data;
@@ -78,6 +78,7 @@ const AddPost = () => {
             }
             
         })
+		refetch()
     }
 
 	const membership = <div>

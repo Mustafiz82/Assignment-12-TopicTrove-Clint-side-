@@ -16,6 +16,8 @@ const Nav = () => {
 
 	const { user, logOut } = useContext(AuthContext);
 
+	console.log(isAdmin);
+
 	const ul = (
 		<>
 			<NavLink

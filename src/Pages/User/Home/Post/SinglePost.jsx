@@ -35,12 +35,12 @@ const SinglePost = ({ item }) => {
 		<Link to={`/postDetails/${item?.postInfo?._id}`}>
             
 			<div className="card  bg-base-100 shadow-xl">
-				<div className="card-body flex gap-10">
+				<div className="card-body flex gap-2 md:gap-10">
 					<div className="flex gap-4 md:gap-5">
-						<div className="w-20 ">
+						<div className=" w-14">
 							<img
 								src={item?.imageUrl}
-								className="w-full rounded-full"
+								className="w-10 h-10 md:w-14 md:h-14 rounded-full"
 								alt=""
 							/>
 						</div>
