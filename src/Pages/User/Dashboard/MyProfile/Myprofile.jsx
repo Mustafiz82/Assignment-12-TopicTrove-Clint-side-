@@ -48,12 +48,12 @@ const Myprofile = () => {
 				<div className="flex justify-center relative rounded-full">
 					<img
 						src={user?.photoURL}
-						className={` w-72 p-2 rounded-full ${data?.Membership === "Gold"
+						className={` w-72 p-2 rounded-full ${data?.Membership === "Member"
                         ? "border-yellow-400"
                         : "border-[#CD7F32] "}  border-4`}
 						alt=""
 					/> 
-                    <img src={data?.Membership === "Gold"
+                    <img src={data?.Membership === "Member"
 									? goldBadge
 									: brongeBadge} className="w-32 absolute -bottom-10 right-0  " alt="" />
 
@@ -63,7 +63,7 @@ const Myprofile = () => {
 					<div>
 						<h1
 							className={
-								data?.Membership === "Gold"
+								data?.Membership === "Member"
 									? "text-yellow-400"
 									: "text-[#CD7F32] "
 							}
@@ -76,7 +76,7 @@ const Myprofile = () => {
 					<div>
 						<h1
 							className={
-								data?.Membership === "Gold"
+								data?.Membership === "Member"
 									? "text-yellow-400"
 									: "text-[#CD7F32] "
 							}
@@ -89,7 +89,7 @@ const Myprofile = () => {
 					<div>
 						<h1
 							className={
-								data?.Membership === "Gold"
+								data?.Membership === "Member"
 									? "text-yellow-400"
 									: "text-[#CD7F32] "
 							}

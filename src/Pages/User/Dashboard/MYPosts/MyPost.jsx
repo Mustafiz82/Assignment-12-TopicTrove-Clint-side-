@@ -57,12 +57,12 @@ const MyPost = () => {
 	};
 	return (
 		<div>
-			<div className="">
-				<table className="table table-xs ">
+			<div className="overflow-x-auto">
+				<table className="table table-xs md:table-md  ">
 					{/* head */}
 					<thead>
 						<tr>
-							<th >Post Title</th>
+							<th colSpan={3} >Post Title</th>
 							<th>Total Votes</th>
 							<th>Comment</th>
 							<th>Delete</th>
@@ -73,7 +73,7 @@ const MyPost = () => {
 
 						{data?.map((item) => (
 							<tr key={item._id} className="hover">
-								<th  className="overflow-scroll w-44">{item?.postInfo.postTitle}</th>
+								<th colSpan={3} className="">{item?.postInfo.postTitle}</th>
 								<td>
 									{item?.postInfo.upVote +
 										item?.postInfo.downVote}

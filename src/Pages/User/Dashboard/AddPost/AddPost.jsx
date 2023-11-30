@@ -2,6 +2,9 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../../Context/AuthProvider";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from 'sweetalert2'
+import { useQuery } from "@tanstack/react-query";
+import loading from "../../../../assets/loading-loader.gif"
+import { Link } from "react-router-dom";
 
 
 const AddPost = () => {
@@ -12,6 +15,38 @@ const AddPost = () => {
     const handleInput = () => {
         setisDisable(false)
     }
+
+
+	const { data: postCount = [] ,isLoading, refetch} = useQuery({
+		queryKey: ["postCount"],
+		queryFn: async () => {
+			const res = await axiosSecure.get(`/postcount/${user?.email}` );
+			return res.data;
+		},
+	});
+
+    console.log(postCount);
+
+	
+
+
+	const { isLoading :loading, data,  } = useQuery({
+		queryKey: ["SingleUser"],
+		queryFn: () =>
+			axiosSecure.get(`/user/${user?.email}`).then((res) => {
+				return res.data;
+			}),
+	});
+
+	if(isLoading || loading){
+		return <div className='h-screen w-full flex justify-center items-center'>
+			<img src={loading} alt="" srcset="" />
+		</div>
+	}
+
+	console.log(data?.Membership , postCount?.result);
+
+
 
 
     const handleSubmit = (e) => {
@@ -44,6 +79,11 @@ const AddPost = () => {
             
         })
     }
+
+	const membership = <div>
+		<Link to="/membership"><button className="btn mb-2 text-white btn-error"> Become A member</button></Link>
+		<p className="text-red-500 ">An user with free plan can up to 5 post . Become a member to make more post</p>
+	</div>
 
 	return (
 		<div className="p-5">
@@ -91,8 +131,15 @@ const AddPost = () => {
 					<option value="programming">programming</option>
 					<option value="food">food</option>
 				</select>
-                         
+              {/* {
+				postCount?.result  > 
+			  } */}
+
+			  {
+				(data?.Membership ==="Free" && postCount?.result >= 5 )? membership
+			 :            
                 <button disabled={isDisable} type="submit" className="block btn btn-primary">Create Post</button>
+			  } 
 			</form>
 		</div>
 	);
