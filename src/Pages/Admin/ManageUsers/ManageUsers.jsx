@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from "@tanstack/react-query";
 import loading from "../../../assets/loading-loader.gif"
@@ -6,6 +6,17 @@ import loading from "../../../assets/loading-loader.gif"
 const ManageUsers = () => {
 
     const axiosSecure = useAxiosSecure();
+	
+	const [countData, setCountData] = useState({});
+	const [currentPage , setCurrentPage] = useState(0)
+
+
+	
+	useEffect(() => {
+		axiosSecure.get("/adminState").then((res) => {
+			setCountData(res.data?.userCount);
+		});
+	}, []);
 
 	const { data: users = [] ,isLoading, refetch} = useQuery({
 		queryKey: ["users"],
@@ -35,6 +46,33 @@ const ManageUsers = () => {
         .catch(err => console.log(err))
     }
 
+
+	const itemPerPage = 6;
+	const numberOfPage = Math.ceil(countData / itemPerPage);
+
+	const pages = [];
+	for (let i = 0; i < numberOfPage; i++) {
+		pages.push(i);
+	}
+
+	const btnPrevious = () => {
+		
+		if(currentPage > 0){
+			setCurrentPage(currentPage - 1)
+			
+		}
+		console.log(currentPage);
+		
+	}
+	const btnNext = () => {
+		if(currentPage < (numberOfPage - 1)){
+			setCurrentPage(currentPage + 1)
+			
+		}
+		console.log(currentPage);
+	}	
+
+	console.log(countData , pages);
 
 
     return (
@@ -68,6 +106,29 @@ const ManageUsers = () => {
 						))}
 					</tbody>
 				</table>
+			</div>
+			<div className=" flex justify-center mt-5 gap-2">
+				<button className="btn " onClick={btnPrevious}>
+					{" "}
+					previous
+				</button>
+
+				{pages.map((page) => (
+					<button
+						key={page}
+						onClick={() => setCurrentPage(page)}
+						className={`btn join-item ${
+							currentPage === page && "btn-primary "
+						}`}
+					>
+						{page}
+					</button>
+				))}
+
+				<button className="btn " onClick={btnNext}>
+					{" "}
+					Next
+				</button>
 			</div>
         </div>
     );
