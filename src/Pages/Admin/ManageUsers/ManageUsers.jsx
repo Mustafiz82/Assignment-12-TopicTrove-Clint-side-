@@ -1,12 +1,13 @@
 import React from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from "@tanstack/react-query";
+import loading from "../../../assets/loading-loader.gif"
 
 const ManageUsers = () => {
 
     const axiosSecure = useAxiosSecure();
 
-	const { data: users = [] , refetch} = useQuery({
+	const { data: users = [] ,isLoading, refetch} = useQuery({
 		queryKey: ["users"],
 		queryFn: async () => {
 			const res = await axiosSecure.get("/users" );
@@ -14,7 +15,13 @@ const ManageUsers = () => {
 		},
 	});
 
-    console.log(users);
+    // console.log(users);
+
+	if(isLoading){
+		return <div className='h-screen w-full flex justify-center items-center'>
+			<img src={loading} alt="" srcset="" />
+		</div>
+	}
 
 
     const handleAdminRole = (id) =>{

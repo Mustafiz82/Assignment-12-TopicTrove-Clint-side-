@@ -8,7 +8,7 @@ const useAdmin = () => {
     const { user } = useContext(AuthContext);
 
 
-    const { data: isAdmin  , isPending} = useQuery({
+    const { data: isAdmin  , isLoading} = useQuery({
         queryKey: [user?.email, "isAdmin"],
         enabled: !!user ,
         queryFn: async () => {
@@ -23,7 +23,7 @@ const useAdmin = () => {
     // console.log("admin"  , isAdmin);
 
 
-    return [isAdmin , isPending]
+    return [isAdmin , isLoading]
 
 };
 

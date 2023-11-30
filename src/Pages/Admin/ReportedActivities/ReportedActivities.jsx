@@ -10,7 +10,7 @@ const ReportedActivities = () => {
     const axiosSecure = useAxiosSecure()
 
     const { isLoading, data, refetch } = useQuery({
-		queryKey: ["adminState"],
+		queryKey: ["reported"],
 		queryFn: () =>
 			axiosSecure.get("/commentsReported").then((res) => {
 				return res.data;
@@ -79,11 +79,11 @@ const ReportedActivities = () => {
 					</thead>
 					<tbody>
 						{data?.map((item, index) => (
-							<tr key={item._id}>
+							<tr key={item?._id}>
 								<th>
 									<label>{index + 1}</label>
 								</th>
-								<td>{item.email}</td>
+								<td>{item?.email}</td>
 								<td>{item?.postInfo.comment}</td>
 								<td>	
                                     <button className=""> {item?.postInfo.reported} </button>

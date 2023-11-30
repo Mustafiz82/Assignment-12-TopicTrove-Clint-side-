@@ -9,22 +9,22 @@ const UserHome = () => {
 	const { user } = useContext(AuthContext);
 	return (
 		<div className="m-5 ">
-			<h1 className="text-3xl mt-10 text-center">
+			<h1 className="text-3xl my-10 text-center">
 				Welcome {user?.displayName}
 			</h1>
 
-			<div className="w-full h-[500px] flex justify-center items-center overflow-hidden">
-			<div className="flex  gap-10 items-center ">
+			<div className="w-full md:h-[500px] flex  md:flex-row justify-center items-center overflow-hidden">
+			<div className="flex flex-col md:flex-row gap-5 md:gap-10 items-center ">
 				<Link to="/Dashboard/AddPost"  className="card p-10 bg-base-100 shadow-xl">
-					<figure>
+					<figure className="w-full">
 						<img
 							src={Addpost}
 							alt="Shoes"
-                            className="w-28"
+                            className="w-44 md:w-28"
 						/>
 					</figure>
 					<div className="card-body">
-						<div className="text-xl font-bold">Add Post</div>
+						<div className="text-xl text-center font-bold">Add Post</div>
 					</div>
 				</Link>
 				<Link to="/Dashboard/MyPost"  className="card p-10 bg-base-100 shadow-xl">
@@ -32,7 +32,7 @@ const UserHome = () => {
 						<img
 							src={myPost}
 							alt="Shoes"
-                            className="w-28"
+                            className="w-44 md:w-28"
 						/>
 					</figure>
 					<div className="card-body">
@@ -44,7 +44,7 @@ const UserHome = () => {
 						<img
 							src={myProfile}
 							alt="Shoes"
-                            className="w-28"
+                            className="w-44 md:w-28"
 						/>
 					</figure>
 					<div className="card-body">

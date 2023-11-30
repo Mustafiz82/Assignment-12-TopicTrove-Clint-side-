@@ -47,7 +47,6 @@ const AddPost = () => {
 
 	return (
 		<div className="p-5">
-			<h1 className="text-3xl">Create post </h1>
 
 			<div className="py-5">
 				<div className="flex gap-4 items-center">

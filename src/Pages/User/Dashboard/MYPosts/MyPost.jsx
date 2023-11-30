@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import loading from "../../../../assets/loading-loader.gif";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import SinglePost from "../../Home/Post/SinglePost";
 
 const MyPost = () => {
 	// const axiosSecure = useAxiosSecure();
@@ -58,12 +57,12 @@ const MyPost = () => {
 	};
 	return (
 		<div>
-			<div className="overflow-x-auto">
-				<table className="table  table-md ">
+			<div className="">
+				<table className="table table-xs ">
 					{/* head */}
 					<thead>
 						<tr>
-							<th>Post Title</th>
+							<th >Post Title</th>
 							<th>Total Votes</th>
 							<th>Comment</th>
 							<th>Delete</th>
@@ -74,7 +73,7 @@ const MyPost = () => {
 
 						{data?.map((item) => (
 							<tr key={item._id} className="hover">
-								<th>{item?.postInfo.postTitle}</th>
+								<th  className="overflow-scroll w-44">{item?.postInfo.postTitle}</th>
 								<td>
 									{item?.postInfo.upVote +
 										item?.postInfo.downVote}

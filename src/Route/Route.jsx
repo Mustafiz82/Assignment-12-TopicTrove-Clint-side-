@@ -18,6 +18,8 @@ import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
 import MakeAnnouncement from "../Pages/Admin/MakeAnnouncement/MakeAnnouncement";
 import ReportedActivities from "../Pages/Admin/ReportedActivities/ReportedActivities";
 import UserHome from "../Pages/User/Dashboard/UserDashboard/UserHome";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
 	{
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/membership",
-				element: <Membership></Membership>
+				element: <PrivateRoute><Membership></Membership></PrivateRoute>
 			},
 			{
 				path: "/postDetails/:id",
@@ -54,27 +56,27 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path:"DashboardHome",
-				element: <UserHome></UserHome>
+				element:<PrivateRoute> <UserHome></UserHome></PrivateRoute>
 				
 			},
 			{
 				path:"MyProfile",
-				element: <Myprofile></Myprofile>
+				element:<PrivateRoute> <Myprofile></Myprofile></PrivateRoute>
 				
 			},
 			{
 				path:"AddPost",
-				element: <AddPost></AddPost>
+				element: <PrivateRoute><AddPost></AddPost></PrivateRoute>
 				
 			},
 			{
 				path:"MyPost",
-				element: <MyPost></MyPost>
+				element: <PrivateRoute><MyPost></MyPost></PrivateRoute>
 				
 			},
 			{
 				path:"Comments/:title",
-				element: <CommentPage></CommentPage>
+				element: <PrivateRoute><CommentPage></CommentPage></PrivateRoute>
 				
 			},
 			
@@ -87,23 +89,23 @@ const router = createBrowserRouter([
 		children : [
 			{
 				path:"AdminHome",
-				element : <AdminHome></AdminHome>
+				element : <AdminRoute><AdminHome></AdminHome></AdminRoute>
 			},
 			{
 				path:"AdminProfile",
-				element : <AdminProfile></AdminProfile>
+				element :<AdminRoute> <AdminProfile></AdminProfile></AdminRoute>
 			},
 			{
 				path:"ManageUsers",
-				element : <ManageUsers></ManageUsers>
+				element : <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
 			},
 			{
 				path:"MakeAnnouncement",
-				element : <MakeAnnouncement></MakeAnnouncement>
+				element : <AdminRoute><MakeAnnouncement></MakeAnnouncement></AdminRoute>
 			},
 			{
 				path:"ReportedPage",
-				element : <ReportedActivities></ReportedActivities>
+				element :<AdminRoute> <ReportedActivities></ReportedActivities></AdminRoute>
 			},
 		]
 

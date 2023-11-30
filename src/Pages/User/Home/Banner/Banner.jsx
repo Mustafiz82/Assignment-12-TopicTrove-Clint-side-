@@ -26,12 +26,12 @@ const Banner = ({setSearchData ,refetch}) => {
 				}}
 			>
 				<div className=""></div>
-				<div className="hero-content text-center text-neutral-content">
-					<div className=" bg-[#46057B]   rounded-full text-center">
+				<div className="hero-content p-0 mt-6 text-center text-neutral-content">
+					<div className=" bg-[#46057B]  p-5 rounded-full text-center">
 						<h1 className="mb-5 max-w-xl mx-auto text-4xl font-bold">
 							Your Gateway to Vibrant Conversations
 						</h1>
-						<p className="mb-5 max-w-4xl">
+						<p className="mb-5  max-w-4xl">
 							Discover a diverse world of topics and engage in
 							meaningful conversations with like-minded
 							individuals. Use the search bar below to explore

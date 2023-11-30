@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
+import { FiMenu } from "react-icons/fi";
+
 
 
 const UserDashboard = () => {
@@ -16,9 +18,10 @@ const UserDashboard = () => {
 					
 					<label
 						htmlFor="my-drawer-2"
-						className="btn btn-primary drawer-button lg:hidden"
+						className="  drawer-button lg:hidden"
 					>
-						Open drawer
+						<FiMenu size={40}  className="m-5"/>
+
 					</label>
 
                     <Outlet></Outlet>

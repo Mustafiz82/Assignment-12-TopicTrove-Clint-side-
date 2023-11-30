@@ -102,8 +102,8 @@ const AdminProfile = () => {
     }
 
 	return (
-		<div className="flex  ">
-			<div className="mx-10  sticky top-0  ">
+		<div className="flex flex-col md:flex-row ">
+			<div className="mx-10     ">
 				<div className="flex justify-center  rounded-full">
 					<img
 						src={user?.photoURL}
@@ -143,7 +143,7 @@ const AdminProfile = () => {
 			</div>
 			<div className="h-screen w-full min-h-[600px] overflow-scroll  p-4 bg-slate-200">
 				<ResponsiveContainer width="100%" height="100%">
-					<PieChart width={800} height={800}>
+					<PieChart width={800} height={100}>
 						<Pie
 							data={piData}
 							cx="50%"

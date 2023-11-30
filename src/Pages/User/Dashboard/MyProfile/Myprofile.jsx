@@ -43,8 +43,8 @@ const Myprofile = () => {
     const  recentPost = allPost?.slice(0,3)
 
 	return (
-		<div className="flex  ">
-			<div className="m-10  sticky top-0  w-1/3 ">
+		<div className="flex flex-col md:flex-row ">
+			<div className="m-10  sticky top-0  md:w-1/3 ">
 				<div className="flex justify-center relative rounded-full">
 					<img
 						src={user?.photoURL}

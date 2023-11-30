@@ -42,7 +42,7 @@ const SearchTag = () => {
             <h1 className='text-3xl'>#TAGS</h1>
             <p className='mb-2'>Better Seacrh with these tags || Click to copy</p>
 
-            <div>
+            <div className=''>
 
 
                 {

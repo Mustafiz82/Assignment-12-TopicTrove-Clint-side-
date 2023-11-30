@@ -115,7 +115,7 @@ const PostDetails = () => {
 		const title = data?.title;
 
 	return (
-		<div className="py-5">
+		<div className="p-5">
 			<div className="flex gap-4 items-center">
 				<img
 					src={data?.imageUrl}
@@ -124,9 +124,9 @@ const PostDetails = () => {
 				/>
 				<div>
 					<p className=" font-bold">{data?.name}</p>
-					<p className="flex items-center">
+					<p className="flex flex-col md:flex-row ">
 						{new Date(data?.postInfo.postTimeUTC).toLocaleString()}
-						<span className="ml-4 text-blue-500">
+						<span className="ml-0 md:ml-4  text-blue-500">
 							#{data?.postInfo.tag}
 						</span>
 					</p>
@@ -136,24 +136,24 @@ const PostDetails = () => {
 				<p className="font-bold text-xl">{data?.postInfo.postTitle}</p>
 				<p>{data?.postInfo.postDescription}</p>
 			</div>
-			<div className="flex mt-5 ">
+			<div className="grid grid-cols-4 mt-5  ">
 				<button
 					onClick={handleUpvote}
 					className="btn rounded-none btn-outline"
 				>
 					<BiSolidUpvote size={20} />
-					Upvote {data?.postInfo.upVote}
+					<span className="hidden md:inline">Upvote</span> {data?.postInfo.upVote}
 				</button>
 				<button
 					onClick={handleDownVote}
-					className="btn rounded-none btn-outline"
+					className="btn rounded-none  btn-outline"
 				>
 					<BiSolidDownvote size={20} />
-					Downvote {data?.postInfo.downVote}
+					 <span className="hidden md:inline">Downvote</span>  {data?.postInfo.downVote}
 				</button>
 				<label for="comment" className="btn rounded-none btn-outline">
 					<FaCommentAlt size={20} />
-					Comment {commentData.length}
+					<span className="hidden md:inline">Comment</span>  {commentData.length}
 				</label>
 				<button
 					onClick={() =>
@@ -162,7 +162,7 @@ const PostDetails = () => {
 					className="btn rounded-none btn-outline"
 				>
 					<IoIosShareAlt size={20} />
-					Share
+					<span className="hidden md:inline">Share</span> 
 				</button>
 			</div>
 
@@ -194,7 +194,7 @@ const PostDetails = () => {
 			)}
 
 			<div className="my-5">
-				<h1 className="text-3xl text-center my-5">comments</h1>
+				<h1 className="text-3xl text-center my-5"></h1>
 				{commentData?.map((item) => (
 					<Comment key={item._id} item={item}></Comment>
 				))}

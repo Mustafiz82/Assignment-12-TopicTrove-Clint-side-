@@ -43,7 +43,7 @@ const MakeAnnouncement = () => {
         })
     }
     return (
-        <div className='px-10'>
+        <div className='md:px-10'>
             
 			<div className="py-5">
 				<div className="flex gap-4 items-center">

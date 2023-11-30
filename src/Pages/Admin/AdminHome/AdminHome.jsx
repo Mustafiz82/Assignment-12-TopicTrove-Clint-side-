@@ -9,7 +9,7 @@ const AdminHome = () => {
     return (
         <div>
             <div className="w-full flex justify-center items-center ">
-			<div className=" grid grid-cols-2 my-5 gap-5 text-center items-center ">
+			<div className=" grid grid-cols-1 md:grid-cols-2 my-5 gap-5 text-center items-center ">
 				<Link to="/AdminDashboard/ManageUsers"  className="card p-10 bg-base-100 shadow-2xl">
 					<figure>
 						<img

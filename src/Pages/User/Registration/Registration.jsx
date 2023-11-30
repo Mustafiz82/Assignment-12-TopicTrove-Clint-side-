@@ -136,9 +136,9 @@ const Registration = () => {
 				backgroundImage: `url(${loginBG})`,
 			}}
 		>
-			<div className=" text-center mx-10 my-8 ">
+			<div className=" text-center md:mx-10 md:my-8 ">
 				<div className="hero min-h-screen bg-base-200">
-					<div className="hero-content w-screen  gap-10 justify-center flex-col lg:flex-row">
+					<div className="hero-content w-screen md:w-auto lg:w-screen  gap-10 justify-center flex-col md:flex-row">
 						<div className="  ">
 							<img src={loginillustrate} alt="" />
 						</div>

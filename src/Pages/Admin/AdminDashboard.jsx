@@ -1,10 +1,12 @@
 
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
+import { FiMenu } from "react-icons/fi";
+
 
 const AdminDashboard = () => {
     return (
-        <div>
+        <div className="m-5">
         <div className="drawer lg:drawer-open">
             <input
                 id="my-drawer-2"
@@ -15,9 +17,9 @@ const AdminDashboard = () => {
                 
                 <label
                     htmlFor="my-drawer-2"
-                    className="btn btn-primary drawer-button lg:hidden"
+                    className=" mx-10 m-5 drawer-button lg:hidden"
                 >
-                    Open drawer
+                    <FiMenu size={46} /> 
                 </label>
 
                 <Outlet></Outlet>
