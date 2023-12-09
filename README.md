@@ -3,7 +3,7 @@
 ## Project Overview
 
 - **Project Name:** Topic-Trove
-- **Project Live Link:** [StudyHub Live Demo]( https://topic-trove.web.app/)
+- **Project Live Link:** [Topictrove Live Demo]( https://topic-trove.web.app/)
 
 ## Features
 
