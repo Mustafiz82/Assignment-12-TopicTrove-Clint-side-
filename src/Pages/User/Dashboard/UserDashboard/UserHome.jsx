@@ -3,6 +3,7 @@ import { AuthContext } from "../../../../Context/AuthProvider";
 import myPost from "../../../../assets/my-post-1.png"
 import Addpost from "../../../../assets/ADDPost.png"
 import myProfile from "../../../../assets/profile.png"
+import updateProfile from "../../../../assets/updateProdile.png"
 import { Link } from "react-router-dom";
 
 const UserHome = () => {
@@ -14,7 +15,7 @@ const UserHome = () => {
 			</h1>
 
 			<div className="w-full md:h-[500px] flex  md:flex-row justify-center items-center overflow-hidden">
-			<div className="flex flex-col md:flex-row gap-5 md:gap-10 items-center ">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center ">
 				<Link to="/Dashboard/AddPost"  className="card p-10 bg-base-100 shadow-xl">
 					<figure className="w-full">
 						<img
@@ -49,6 +50,18 @@ const UserHome = () => {
 					</figure>
 					<div className="card-body">
 						<p className="text-xl font-bold">My profile</p>
+					</div>
+				</Link>
+				<Link to="/Dashboard/UpdateProfile"  className="card p-10 bg-base-100 shadow-xl">
+					<figure>
+						<img
+							src={updateProfile}
+							alt="Shoes"
+                            className="w-44 md:w-28"
+						/>
+					</figure>
+					<div className="card-body">
+						<p className="text-xl font-bold">Update profile</p>
 					</div>
 				</Link>
 			</div>

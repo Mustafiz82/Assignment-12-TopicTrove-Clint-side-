@@ -146,7 +146,7 @@ const Nav = () => {
 								</p>
 							</li>
 							<li className="">
-								{isAdmin ? (
+								{isAdmin=="admin" ? (
 									<Link
 										className="text-xl my-4 btn"
 										to="/AdminDashboard/AdminHome"

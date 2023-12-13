@@ -5,8 +5,8 @@ import { AuthContext } from "../Context/AuthProvider";
 
 
 const axiosSecure = axios.create({
-    // baseURL: 'https://topictrove-server.vercel.app/',
-    baseURL: 'http://localhost:5144',
+    baseURL: 'https://topictrove-server.vercel.app',
+    // baseURL: 'http://localhost:5144',
     // timeout: 2000,
     // headers: { 'X-Custom-Header': 'foobar' }
   });

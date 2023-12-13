@@ -7,6 +7,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
+	updatePassword,
 	updateProfile,
 } from "firebase/auth";
 import { app } from "../../firebase.config";
@@ -15,7 +16,7 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-const axiosPublic = useAxiosPublic()
+const axiosPublic = useAxiosPublic();
 
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
@@ -39,6 +40,22 @@ const AuthProvider = ({ children }) => {
 			photoURL: PhotoUrl,
 		});
 	};
+	// const newPassword = getASecureRandomPassword();
+	
+	const UpdatePassword = (newPassword) => {
+
+		console.log(newPassword ,"newPassword");
+		
+		const user = auth.currentUser; 
+		updatePassword(user , newPassword)
+		.then(() => {
+			console.log("seccess");
+		})
+		.catch((error) => {
+			// An error ocurred
+			console.log(error);
+		});
+	}
 
 	const logOut = () => {
 		signOut(auth)
@@ -65,13 +82,10 @@ const AuthProvider = ({ children }) => {
 						localStorage.setItem("access-token", res.data?.token);
 					}
 				});
-
 			} else {
 				console.log("user is signed Out");
 				setUser(null);
 				localStorage.removeItem("access-token");
-
-
 			}
 		});
 
@@ -86,7 +100,8 @@ const AuthProvider = ({ children }) => {
 		googleSignIn,
 		SignUp,
 		profile,
-		logOut,loading
+		logOut,
+		loading,UpdatePassword
 	};
 
 	return (

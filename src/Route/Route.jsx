@@ -20,6 +20,8 @@ import ReportedActivities from "../Pages/Admin/ReportedActivities/ReportedActivi
 import UserHome from "../Pages/User/Dashboard/UserDashboard/UserHome";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import UpdateProfile from "../Pages/User/Dashboard/UpdateProfile/UpdateProfile";
+
 
 const router = createBrowserRouter([
 	{
@@ -62,6 +64,11 @@ const router = createBrowserRouter([
 			{
 				path:"MyProfile",
 				element:<PrivateRoute> <Myprofile></Myprofile></PrivateRoute>
+				
+			},
+			{
+				path:"UpdateProfile",
+				element:<PrivateRoute> <UpdateProfile></UpdateProfile></PrivateRoute>
 				
 			},
 			{
